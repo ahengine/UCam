@@ -3,7 +3,7 @@ using UPatterns;
 
 namespace UCamSystem.States
 {
-    public abstract class BaseUCamState : State<CameraStates>
+    public abstract class BaseUCamState : State<UCamStates>
     {
         protected UCam owner;
 

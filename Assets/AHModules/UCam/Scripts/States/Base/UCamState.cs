@@ -1,5 +1,4 @@
 using UnityEngine;
-using UPatterns;
 
 namespace UCamSystem.States
 {

@@ -2,7 +2,7 @@ using UnityEngine;
 using UCamSystem.Modules;
 using UCamSystem.States;
 
-public enum CameraStates { Orbit, FirstPerson, OrbitLimited}
+public enum UCamStates { Orbit, FirstPerson, OrbitLimited}
 
 namespace UCamSystem
 {
@@ -32,15 +32,15 @@ namespace UCamSystem
         [field: SerializeField] public BaseUCamState[] States { private set; get; }
         public UCamState<UCamStateCard> CurrentState { private set; get; }
 
-        public T GetState<T>(CameraStates state) where T : UCamState<UCamStateCard>
+        public TState GetState<TState,TStateCard>(UCamStates state) where TState : UCamState<TStateCard> where TStateCard:UCamStateCard
         {
             for (int i = 0; i < States.Length; i++)
                 if (States[i].ID == state)
-                    return States[i] as T;
+                    return States[i] as TState;
 
             return null;
         }
-
+        
         [SerializeField] private float moveSpeed = 4;
         [SerializeField] private float rotateSpeed = 40;
 
@@ -59,7 +59,7 @@ namespace UCamSystem
             for(int i=0;i<States.Length;i++)
                 States[i].SetOwner(this);
 
-            SetState(CameraStates.Orbit);
+            SetState(UCamStates.Orbit);
 
             cam = GetComponent<Camera>();
         }
@@ -100,19 +100,16 @@ namespace UCamSystem
                 Quaternion.Slerp(transform.rotation, Tr.rotation, rotateSpeed * Time.deltaTime)
             );
 
-        public void SetState(CameraStates newState, bool force = false) {
+        public void SetState(UCamStates newState, bool force = false) {
             if(CurrentState?.ID == newState && !force) return;
 
             CurrentState?.Exit();
-            CurrentState = GetState<UCamState<UCamStateCard>>(newState);
+            CurrentState = GetState<UCamState<UCamStateCard>, UCamStateCard>(newState);
             CurrentState?.Enter();
         }
 
-        public void SetGhostTransform(Transform point)
-        {
-            Tr.position = point.position;
-            Tr.rotation = point.rotation;
-        }
+        public void SetGhostPositionRotation(Transform point) =>
+            Tr.SetPositionAndRotation(point.position, point.rotation);
 
         #region  AllowAction
         [field:SerializeField] public bool CantAction { private set; get; }
