@@ -24,5 +24,12 @@ namespace UCamSystem.States
             owner.GetModule<ZoomModule>().Set(CurrentCard.zoomScale, CurrentCard.zoomDistance);
             owner.GetModule<OrbitModule>().Set(CurrentCard.rotationSpeedMouse);
         }
+
+        public override void GetData(UCamPoint point)
+        {
+            base.GetData(point);
+            print((OrbitStateCard)point.stateCard);
+            SetCard(point.stateCard as OrbitStateCard);
+        }
     }
 }

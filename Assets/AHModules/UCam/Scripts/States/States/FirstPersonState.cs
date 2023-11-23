@@ -18,5 +18,12 @@ namespace UCamSystem.States
 
         public override void SetApplyCard() =>
             owner.GetModule<FirstPersonModule>().Set(CurrentCard.Ysensitivity);
+
+        
+        public override void GetData(UCamPoint point)
+        {
+            base.GetData(point);
+            SetCard(point.stateCard as FirstPersonStateCard);
+        }
     }
 }

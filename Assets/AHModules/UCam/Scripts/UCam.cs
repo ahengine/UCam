@@ -30,17 +30,26 @@ namespace UCamSystem
             return null;
         }
         [field: SerializeField] public BaseUCamState[] States { private set; get; }
-        public UCamState<UCamStateCard> CurrentState { private set; get; }
+        public BaseUCamState CurrentState { private set; get; }
 
-        public TState GetState<TState,TStateCard>(UCamStates state) where TState : UCamState<TStateCard> where TStateCard:UCamStateCard
+        // public TState GetState<TState,TStateCard>(UCamStates state) where TState : UCamState<TStateCard> where TStateCard:UCamStateCard
+        // {
+        //     for (int i = 0; i < States.Length; i++)
+        //         if (States[i].ID == state)
+        //             return States[i] as TState;
+
+        //     return null;
+        // }
+        
+        public BaseUCamState GetState(UCamStates state)
         {
             for (int i = 0; i < States.Length; i++)
                 if (States[i].ID == state)
-                    return States[i] as TState;
+                    return States[i];
 
             return null;
         }
-        
+
         [SerializeField] private float moveSpeed = 4;
         [SerializeField] private float rotateSpeed = 40;
 
@@ -104,7 +113,7 @@ namespace UCamSystem
             if(CurrentState?.ID == newState && !force) return;
 
             CurrentState?.Exit();
-            CurrentState = GetState<UCamState<UCamStateCard>, UCamStateCard>(newState);
+            CurrentState = GetState(newState);
             CurrentState?.Enter();
         }
 

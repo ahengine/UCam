@@ -9,5 +9,9 @@ namespace UCamSystem.States
 
         public virtual void SetOwner(UCam owner) =>
             this.owner = owner;
+
+        public virtual void GetData(UCamPoint point) {
+            
+        }
     }
 }
