@@ -15,13 +15,21 @@ namespace UCamSystem
             if (!UCam.Instance)
                 return;
 
-            UCam.Instance.SetState(state, true);
-            if (stateCard)
-                UCam.Instance.CurrentState.GetData(this);
             if(targetPoint)
                 UCam.Instance.SetTarget(targetPoint);
             if(startPoint)
                 UCam.Instance.SetGhostPositionRotation(startPoint);
+            UCam.Instance.SetState(state, true);
+            if (stateCard)
+                UCam.Instance.CurrentState.GetData(this);
+        }
+
+        private void Update() {
+            if(Input.GetKeyDown(KeyCode.Space))
+            {
+                Set();
+                print(UCam.Instance.CurrentState.name);
+            }
         }
     }
 }

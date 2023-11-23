@@ -115,6 +115,7 @@ namespace UCamSystem
             CurrentState?.Exit();
             CurrentState = GetState(newState);
             CurrentState?.Enter();
+            print(CurrentState.name);
         }
 
         public void SetGhostPositionRotation(Transform point) =>
