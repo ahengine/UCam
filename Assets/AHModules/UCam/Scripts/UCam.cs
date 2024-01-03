@@ -1,8 +1,8 @@
 using UnityEngine;
 using UCamSystem.Modules;
 using UCamSystem.States;
-
-public enum UCamStates { Orbit, FirstPerson, OrbitLimited}
+// modules to make whole camera settings work correctly.
+public enum UCamStates { None,Orbit, FirstPerson}
 
 namespace UCamSystem
 {
@@ -13,6 +13,9 @@ namespace UCamSystem
 
         [HideInInspector]
         internal Vector3 TargetOffset;
+
+        [SerializeField] private UCamStates defaultState;
+        [SerializeField] private UCamPoint defaultPoint;
 
         public bool IsLocked { private set; get; }
 
@@ -32,14 +35,14 @@ namespace UCamSystem
         [field: SerializeField] public BaseUCamState[] States { private set; get; }
         public BaseUCamState CurrentState { private set; get; }
 
-        // public TState GetState<TState,TStateCard>(UCamStates state) where TState : UCamState<TStateCard> where TStateCard:UCamStateCard
-        // {
-        //     for (int i = 0; i < States.Length; i++)
-        //         if (States[i].ID == state)
-        //             return States[i] as TState;
+        public TState GetState<TState,TStateCard>() where TState : UCamState<TStateCard> where TStateCard:UCamStateCard
+        {
+            for (int i = 0; i < States.Length; i++)
+                if (States[i].GetType() == typeof(TState))
+                    return States[i] as TState;
 
-        //     return null;
-        // }
+            return null;
+        }
         
         public BaseUCamState GetState(UCamStates state)
         {
@@ -68,9 +71,12 @@ namespace UCamSystem
             for(int i=0;i<States.Length;i++)
                 States[i].SetOwner(this);
 
-            SetState(UCamStates.Orbit);
+            SetState(defaultState);
 
             cam = GetComponent<Camera>();
+
+            if(defaultPoint)
+                defaultPoint.Set();
         }
 
         private void CreateGhost() {
@@ -110,12 +116,11 @@ namespace UCamSystem
             );
 
         public void SetState(UCamStates newState, bool force = false) {
-            if(CurrentState?.ID == newState && !force) return;
+            //if(CurrentState?.ID == newState && !force) return;
 
             CurrentState?.Exit();
             CurrentState = GetState(newState);
             CurrentState?.Enter();
-            print(CurrentState.name);
         }
 
         public void SetGhostPositionRotation(Transform point) =>
@@ -140,5 +145,14 @@ namespace UCamSystem
 
         public void SetFieldOfView(float value) =>
             cam.fieldOfView = value;
+
+        public void SetParent(Transform parent) {
+            Tr.SetParent(parent);
+            if (!parent)
+                return;
+                
+            Tr.localPosition = Vector3.zero;
+            Tr.localRotation = Quaternion.identity;
+        }
     }
 }

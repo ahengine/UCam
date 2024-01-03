@@ -4,6 +4,6 @@ namespace UCamSystem.States
 {
     public class UCamStateCard : ScriptableObject
     {
-        public float fieldOfView = 60;
+        [field:SerializeField] public float FieldOfView { private set; get; } = 60;
     }
 }

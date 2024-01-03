@@ -1,5 +1,5 @@
 using UnityEngine;
-
+// modules to make whole camera settings work correctly.
 namespace UCamSystem.States
 {
     public abstract class UCamState<T> : BaseUCamState where T:UCamStateCard
@@ -36,7 +36,7 @@ namespace UCamSystem.States
             if (!CurrentCard)
                 return;
 
-            owner.SetFieldOfView(CurrentCard.fieldOfView);
+            owner.SetFieldOfView(CurrentCard.FieldOfView);
         }
     }
 }
