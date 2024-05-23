@@ -1,21 +1,26 @@
 using UnityEngine;
 using UCamSystem.States;
-// modules to control the camera and view of the project
+
 namespace UCamSystem
 {
     public class UCamPoint : MonoBehaviour
     {
         [SerializeField] private bool onEnable;
-        [SerializeField] private UCamStates state;
         [field:SerializeField] public UCamStateCard stateCard { private set; get; }
-        [SerializeField] private Transform startPoint;
-        [SerializeField] private Transform targetPoint;
-        [SerializeField] private Transform parentPoint;
+        [SerializeField] private bool isStartPoint = true;
+        [SerializeField] private bool parent = true;
+        [SerializeField] private Transform target;
 
-        protected virtual void Awake()
-        {
-           // if (!startPoint)
-           //     startPoint = transform;  
+        private UCam owner;
+
+        public void SetOwner(UCam owner) 
+            => this.owner = owner;
+        private bool HaveOwner() {
+            
+               if(!owner)
+                SetOwner(UCam.Instance);
+
+            return owner;
         }
 
         private void OnEnable() {
@@ -24,28 +29,47 @@ namespace UCamSystem
         }
 
         public void Set() {
-
-            if (!UCam.Instance)
+            
+            if(!HaveOwner())
                 return;
-            if(targetPoint)
-                UCam.Instance.SetTarget(targetPoint);
-            if(startPoint)
-                UCam.Instance.SetGhostPositionRotation(startPoint);
-            UCam.Instance.SetParent(parentPoint);
-            UCam.Instance.SetState(state, true);
-            if (stateCard)
-                UCam.Instance.CurrentState.GetData(this);
+
+            if(target)
+                owner.SetTarget(target);
+            if(isStartPoint)
+                owner.Ghost.SetPositionRotation(transform);
+
+            owner.Ghost.SetParent(transform);
+
+            if(!stateCard)
+                return;
+
+            owner.SetState(stateCard, true);
         }
+
 #if UNITY_EDITOR
-        [SerializeField] private bool allowTest;
-        private void Update() {
-            if(!allowTest)
+        [Header("Editor Test"),SerializeField] private KeyCode keyCode;
+        private void Update() 
+        {
+            if(!HaveOwner())
                 return;
 
-            if(Input.GetKeyDown(KeyCode.Space))
+            if(Input.GetKeyDown(keyCode))
             {
                 Set();
-                print(UCam.Instance.CurrentState.name);
+                if(owner.CurrentState != null)
+                print(owner.CurrentState.ID);
+            }
+        }
+
+        [SerializeField] private bool distanceToTargetCheck;
+        [SerializeField] private Vector2 distanceToTargetAreaRange = new Vector2(20,100);
+        private void OnDrawGizmos() {
+            
+            if(distanceToTargetCheck && target)
+            {
+                float distance = Vector3.Distance(transform.position,target.position);
+                bool distanceInArea = distance >= distanceToTargetAreaRange.x && distance <= distanceToTargetAreaRange.y;           
+                Debug.DrawRay(transform.position, target.position - transform.position,distanceInArea ? Color.green :Color.red);
             }
         }
 #endif

@@ -2,47 +2,32 @@ using UnityEngine;
 
 namespace UCamSystem.Modules
 {
-    public class FirstPersonModule : UCamModule
+    public class FirstPersonModule : UCamModuleGeneric<FirstPersonModuleData>
     {
-        [SerializeField] private FirstPersonModuleCard state;
         private Vector3 rotAround;
 
         public override void Active()
         {
             base.Active();
-            rotAround = state.Space == Space.World ? owner.Tr.eulerAngles : 
-                                                     owner.Tr.localEulerAngles;
+            rotAround = owner.Ghost.GetEuler(state.Space);
         }
 
-        public override void Updates()
+        public override void Update()
         {
-            if (Input.GetMouseButton(0) && !owner.CantAction)
-                rotAround += new Vector3((state.RotationDirection.X ?1:0) * Input.GetAxis(Constants.MouseY) * state.Sensitivity,
-                                         (state.RotationDirection.Y ?1:0) * Input.GetAxis(Constants.MouseX) * state.Sensitivity);
+            if (Input.GetMouseButton(0) && !owner.IsLocked)
+                rotAround += new Vector3((state.RotationX.Enable ?1:0) * Input.GetAxis(Constants.MouseY) * state.Sensitivity,
+                                         (state.RotationY.Enable ?1:0) * Input.GetAxis(Constants.MouseX) * state.Sensitivity);
             ApplyLimitation();
-
-            switch(state.Space)
-            {
-                case Space.World:
-                    owner.Tr.rotation = Quaternion.Euler(rotAround);
-                    break;
-                case Space.Self:
-                    owner.Tr.localRotation = Quaternion.Euler(rotAround);
-                    break;
-            }
-
+            owner.Ghost.SetRotation(Quaternion.Euler(rotAround) ,state.Space);
         }
 
         private void ApplyLimitation()
         {
             rotAround = new Vector3(
-                state.RotationLimit.limitX ? Mathf.Clamp(rotAround.x, state.RotationLimit.limitXRange.x, state.RotationLimit.limitXRange.y) : rotAround.x,
-                state.RotationLimit.limitY ? Mathf.Clamp(rotAround.y, state.RotationLimit.limitYRange.x, state.RotationLimit.limitYRange.y) : rotAround.y,
-                state.RotationLimit.limitZ ? Mathf.Clamp(rotAround.z, state.RotationLimit.limitZRange.x, state.RotationLimit.limitZRange.y) : rotAround.z
+                state.RotationX.Limit.Enable ? state.RotationX.Limit.Clamp(rotAround.x) : rotAround.x,
+                state.RotationY.Limit.Enable ? state.RotationY.Limit.Clamp(rotAround.y) : rotAround.y,
+                state.RotationLimitZ.Enable  ? state.RotationLimitZ.Clamp(rotAround.z)  : rotAround.z
             );
         }
-
-        public void Set(FirstPersonModuleCard stateCard) =>
-            state = stateCard;
     }
 }

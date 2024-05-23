@@ -1,5 +1,4 @@
-using UnityEngine;
-using UPatterns;
+using UCamSystem.Modules;
 
 namespace UCamSystem.States
 {
@@ -10,8 +9,6 @@ namespace UCamSystem.States
         public virtual void SetOwner(UCam owner) =>
             this.owner = owner;
 
-        public virtual void GetData(UCamPoint point) {
-            
-        }
+        public virtual void SetCard(UCamStateCard newCard) { }
     }
 }

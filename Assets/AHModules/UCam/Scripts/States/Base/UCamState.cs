@@ -1,19 +1,8 @@
-using UnityEngine;
-// modules to make whole camera settings work correctly.
 namespace UCamSystem.States
 {
     public abstract class UCamState<T> : BaseUCamState where T:UCamStateCard
     {
-        [SerializeField] private T defaultCard;
-
         public T CurrentCard { protected set; get; }
-
-        public override void Enter()
-        {
-            base.Enter();
-            if (CurrentCard != null)
-                SetDefaultCard();
-        }
 
         public override void Exit()
         {
@@ -21,18 +10,15 @@ namespace UCamSystem.States
             CurrentCard = null;
         }
         
+        public override void SetCard(UCamStateCard newCard) =>
+            SetCard(newCard as T);
+
         public virtual void SetCard(T newCard) { 
             CurrentCard = newCard;
-            SetApplyCard();
+            ApplyCard();
         }
 
-        public virtual void SetDefaultCard() 
-        {
-            CurrentCard = defaultCard;
-            SetApplyCard();
-        }
-
-        public virtual void SetApplyCard() {
+        public virtual void ApplyCard() {
             if (!CurrentCard)
                 return;
 
