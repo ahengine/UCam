@@ -1561,8 +1561,10 @@ MonoBehaviour:
   <stateCard>k__BackingField: {fileID: 11400000, guid: d1a785884c629e041b2f4ca7ee4a2ba5, type: 2}
   isStartPoint: 1
   parent: 1
-  targetPoint: {fileID: 112506040}
+  target: {fileID: 0}
   keyCode: 50
+  distanceToTargetCheck: 0
+  distanceToTargetAreaRange: {x: 20, y: 100}
 --- !u!4 &1316512831
 Transform:
   m_ObjectHideFlags: 0
@@ -2285,8 +2287,10 @@ MonoBehaviour:
   <stateCard>k__BackingField: {fileID: 11400000, guid: e4b2767ff28fc2541a03a224cf7281d2, type: 2}
   isStartPoint: 1
   parent: 1
-  targetPoint: {fileID: 138556516}
+  target: {fileID: 138556516}
   keyCode: 49
+  distanceToTargetCheck: 1
+  distanceToTargetAreaRange: {x: 10, y: 50}
 --- !u!4 &1940182469
 Transform:
   m_ObjectHideFlags: 0
@@ -2353,8 +2357,10 @@ MonoBehaviour:
   <stateCard>k__BackingField: {fileID: 11400000, guid: d1a785884c629e041b2f4ca7ee4a2ba5, type: 2}
   isStartPoint: 0
   parent: 0
-  targetPoint: {fileID: 0}
+  target: {fileID: 0}
   keyCode: 0
+  distanceToTargetCheck: 0
+  distanceToTargetAreaRange: {x: 20, y: 100}
 --- !u!1 &2027049767
 GameObject:
   m_ObjectHideFlags: 0
