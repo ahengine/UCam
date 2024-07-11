@@ -13,14 +13,15 @@ namespace UCamSystem.States
         public override void Enter()
         {
             base.Enter();
-            zoomModule.Active();
+            if(CurrentCard.Zoom.Enable) zoomModule.Active();
             orbitModule.Active();
         }
 
         public override void LateUpdate()
         {
             base.LateUpdate();
-            zoomModule.Update();
+            if(CurrentCard.Zoom.Enable)
+                zoomModule.Update();
             orbitModule.Update();
         }
 

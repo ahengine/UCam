@@ -30,6 +30,9 @@ namespace UCamSystem.Modules
             // X-axis rotation
             Quaternion camAngleX = Quaternion.AngleAxis(mouseY * state.MouseSpeed, Vector3.right);
             owner.TargetOffset = camAngleX * owner.TargetOffset;
+
+            owner.Ghost.Tr.position = owner.Target.position + owner.TargetOffset;
+            owner.Ghost.Tr.LookAt(owner.Target);
         }
     }
 }

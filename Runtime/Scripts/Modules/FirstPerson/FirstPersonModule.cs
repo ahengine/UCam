@@ -9,7 +9,14 @@ namespace UCamSystem.Modules
         public override void Active()
         {
             base.Active();
-            rotAround = owner.Ghost.GetEuler(state.Space);
+
+            if(state.ParentRoot)
+            {
+                owner.Ghost.Parent.rotation = Quaternion.identity;
+                owner.Ghost.SetRotation(owner.Ghost.Parent.parent.rotation);
+            }
+
+            rotAround = owner.Ghost.GetEuler(state.Space, state.ParentRoot);
         }
 
         public override void Update()
@@ -18,7 +25,8 @@ namespace UCamSystem.Modules
                 rotAround += new Vector3((state.RotationX.Enable ?1:0) * Input.GetAxis(Constants.MouseY) * state.Sensitivity,
                                          (state.RotationY.Enable ?1:0) * Input.GetAxis(Constants.MouseX) * state.Sensitivity);
             ApplyLimitation();
-            owner.Ghost.SetRotation(Quaternion.Euler(rotAround) ,state.Space);
+            
+            owner.Ghost.SetRotation(Quaternion.Euler(rotAround) ,state.Space, state.ParentRoot);
         }
 
         private void ApplyLimitation()
