@@ -1,0 +1,12 @@
+{
+  "name": "com.ahengine.ucam",
+  "version": "1.0.0",
+  "displayName": "UCam",
+  "description": "UCam a Camera modular and State Driven for Unity",
+  "unity": "2021.1",
+  "unityRelease": "0b5",
+  "author": {
+    "name": "Hamidreza Karamian, Usef Farahmand"
+  },
+  "type": "library"
+}
