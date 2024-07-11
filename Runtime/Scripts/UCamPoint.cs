@@ -6,39 +6,31 @@ namespace UCamSystem
     public class UCamPoint : MonoBehaviour
     {
         [SerializeField] private bool onEnable;
-        [field:SerializeField] public UCamStateCard stateCard { private set; get; }
-        [SerializeField] private bool isStartPoint = true;
-        [SerializeField] private bool parent = true;
+        [SerializeField] private UCamStateCard stateCard;
+        [SerializeField] private Transform parent;
         [SerializeField] private Transform target;
 
         private UCam owner;
 
-        public void SetOwner(UCam owner) 
-            => this.owner = owner;
-        private bool HaveOwner() {
-            
-               if(!owner)
-                SetOwner(UCam.Instance);
-
-            return owner;
-        }
+        public UCam SetOwner(UCam owner) => 
+            this.owner = owner;
 
         private void OnEnable() {
             if (onEnable)
                 Set();  
         }
 
-        public void Set() {
-            
-            if(!HaveOwner())
+        [ContextMenu("Set")]
+        public void Set() 
+        {    
+            if(!owner && !SetOwner(UCam.Instance))
                 return;
 
             if(target)
                 owner.SetTarget(target);
-            if(isStartPoint)
-                owner.Ghost.SetPositionRotation(transform);
 
-            owner.Ghost.SetParent(transform);
+            owner.Ghost.SetPositionRotation(transform);
+            owner.Ghost.SetParent(parent ?? transform);
 
             if(!stateCard)
                 return;
@@ -50,7 +42,7 @@ namespace UCamSystem
         [Header("Editor Test"),SerializeField] private KeyCode keyCode;
         private void Update() 
         {
-            if(!HaveOwner())
+            if(!owner)
                 return;
 
             if(Input.GetKeyDown(keyCode))

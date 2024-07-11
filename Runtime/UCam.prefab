@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5323948752398300124}
   - component: {fileID: 6445091351985770608}
   - component: {fileID: 4507136586062188422}
-  - component: {fileID: 846780966684098965}
+  - component: {fileID: 2377553299919201087}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: UCam
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -93,7 +93,7 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 63774267485995563}
   m_Enabled: 1
---- !u!114 &846780966684098965
+--- !u!114 &2377553299919201087
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,13 +102,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 63774267485995563}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0e127101e746bd499df942443df33c7, type: 3}
+  m_Script: {fileID: 11500000, guid: 23c09e13383b7e44e9cce301ae6bdaee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultState: 0
-  defaultPoint: {fileID: 0}
-  moveSpeed: 10
-  rotateSpeed: 10
-  <Target>k__BackingField: {fileID: 0}
-  <CantAction>k__BackingField: 0
-  ScreenTouchSpacePercent: 80
+  moveSpeed: 4
+  rotateSpeed: 40

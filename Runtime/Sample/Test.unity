@@ -563,25 +563,6 @@ Transform:
   - {fileID: 806652149}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &598895797 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 63774267485995563, guid: 60ad9c53602fe5c4ba84c850e4e1694d, type: 3}
-  m_PrefabInstance: {fileID: 897691121}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &598895803
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 598895797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23c09e13383b7e44e9cce301ae6bdaee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 4
-  rotateSpeed: 40
 --- !u!1 &607302349
 GameObject:
   m_ObjectHideFlags: 0
@@ -941,10 +922,7 @@ PrefabInstance:
     - {fileID: 773707152433706852, guid: 60ad9c53602fe5c4ba84c850e4e1694d, type: 3}
     - {fileID: 7929001108178337748, guid: 60ad9c53602fe5c4ba84c850e4e1694d, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 63774267485995563, guid: 60ad9c53602fe5c4ba84c850e4e1694d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 598895803}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60ad9c53602fe5c4ba84c850e4e1694d, type: 3}
 --- !u!1 &970315218
 GameObject:
@@ -1558,9 +1536,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onEnable: 0
-  <stateCard>k__BackingField: {fileID: 11400000, guid: d1a785884c629e041b2f4ca7ee4a2ba5, type: 2}
-  isStartPoint: 1
-  parent: 1
+  stateCard: {fileID: 11400000, guid: d1a785884c629e041b2f4ca7ee4a2ba5, type: 2}
+  parent: {fileID: 0}
   target: {fileID: 0}
   keyCode: 50
   distanceToTargetCheck: 0
@@ -2284,9 +2261,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onEnable: 1
-  <stateCard>k__BackingField: {fileID: 11400000, guid: e4b2767ff28fc2541a03a224cf7281d2, type: 2}
-  isStartPoint: 1
-  parent: 1
+  stateCard: {fileID: 11400000, guid: e4b2767ff28fc2541a03a224cf7281d2, type: 2}
+  parent: {fileID: 0}
   target: {fileID: 138556516}
   keyCode: 49
   distanceToTargetCheck: 1
@@ -2354,9 +2330,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onEnable: 0
-  <stateCard>k__BackingField: {fileID: 11400000, guid: d1a785884c629e041b2f4ca7ee4a2ba5, type: 2}
-  isStartPoint: 0
-  parent: 0
+  stateCard: {fileID: 0}
+  parent: {fileID: 0}
   target: {fileID: 0}
   keyCode: 0
   distanceToTargetCheck: 0

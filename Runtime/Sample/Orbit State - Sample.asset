@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da33acbc8c2c80b409724deafc2c3e02, type: 3}
-  m_Name: Orbit State
+  m_Name: Orbit State - Sample
   m_EditorClassIdentifier: 
   <FieldOfView>k__BackingField: 60
   <Zoom>k__BackingField:
@@ -19,6 +19,7 @@ MonoBehaviour:
     <RangeDistance>k__BackingField: {x: 10, y: 20}
   <Orbit>k__BackingField:
     <Enable>k__BackingField: 1
-    <RotationX>k__BackingField: 1
+    <RotationX>k__BackingField: 0
+    <RotationYLimit>k__BackingField: {x: -45, y: 45}
     <RotationY>k__BackingField: 1
     <MouseSpeed>k__BackingField: 5
