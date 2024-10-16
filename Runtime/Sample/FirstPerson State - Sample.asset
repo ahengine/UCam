@@ -15,6 +15,7 @@ MonoBehaviour:
   <FieldOfView>k__BackingField: 60
   <FirstPerson>k__BackingField:
     <Enable>k__BackingField: 1
+    <ParentRoot>k__BackingField: 0
     <Space>k__BackingField: 0
     <Sensitivity>k__BackingField: 5
     <RotationX>k__BackingField:

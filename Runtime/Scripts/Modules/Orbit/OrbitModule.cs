@@ -20,19 +20,17 @@ namespace UCamSystem.Modules
 
         private void Dragging()
         {
-            float mouseX = state.RotationX ? Input.GetAxis(Constants.MouseX) : 0;
-            float mouseY = state.RotationY ? Input.GetAxis(Constants.MouseY) : 0;
+            float YAxis = state.RotationY ? Input.GetAxis(Constants.MouseX) : 0;
+            float XAxis = state.RotationX ? Input.GetAxis(Constants.MouseY) : 0;
 
             // Y-axis rotation
-            Quaternion camAngleY = Quaternion.AngleAxis(mouseX * state.MouseSpeed, Vector3.up);
+            Quaternion camAngleY = Quaternion.AngleAxis(YAxis * state.MouseSpeed, Vector3.up);
             owner.TargetOffset = camAngleY * owner.TargetOffset;
 
             // X-axis rotation
-            Quaternion camAngleX = Quaternion.AngleAxis(mouseY * state.MouseSpeed, Vector3.right);
+            XAxis = Mathf.Clamp(XAxis, state.RotationXLimit.x, state.RotationXLimit.y);
+            Quaternion camAngleX = Quaternion.AngleAxis(XAxis * state.MouseSpeed, Vector3.right);
             owner.TargetOffset = camAngleX * owner.TargetOffset;
-
-            // owner.Ghost.SetPosition(owner.Target.position + owner.TargetOffset);
-            // owner.Ghost.Tr.LookAt(owner.Target);
         }
     }
 }

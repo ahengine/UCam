@@ -10,6 +10,9 @@ namespace UCamSystem
     public class UCam : MonoBehaviour
     {
         public static UCam Instance { private set; get; }
+
+        public TransformState SaveState { private set; get; } = new TransformState();
+
         private Camera cam;
 
         [HideInInspector]
@@ -156,5 +159,8 @@ namespace UCamSystem
             cam.nearClipPlane = value;
         public void SetFieldOfView(float value) =>
             cam.fieldOfView = value;
+
+        public void Log(TransformState state) =>
+            SaveState = state;
     }
 }

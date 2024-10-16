@@ -19,7 +19,7 @@ MonoBehaviour:
     <RangeDistance>k__BackingField: {x: 10, y: 20}
   <Orbit>k__BackingField:
     <Enable>k__BackingField: 1
-    <RotationX>k__BackingField: 0
-    <RotationYLimit>k__BackingField: {x: -45, y: 45}
-    <RotationY>k__BackingField: 1
+    <RotationX>k__BackingField: 1
+    <RotationXLimit>k__BackingField: {x: -45, y: 45}
+    <RotationY>k__BackingField: 0
     <MouseSpeed>k__BackingField: 5
