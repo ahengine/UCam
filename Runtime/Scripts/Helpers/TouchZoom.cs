@@ -20,3 +20,44 @@ public static class TouchZoom
         return prevTouchDeltaMag - touchDeltaMag;
     }
 }
+
+
+public class TouchDragHandler
+{
+    public float ValueMultiplier = .4f;
+    public float MinDragSize = 10;
+    private Vector2 start;
+    public Vector2 Current {private set; get; }
+
+    private bool StartDragging;
+
+    public Vector2 UpdateDistance()
+    {
+        if(Input.GetMouseButtonDown(0))
+            {
+                start = Input.mousePosition;
+                StartDragging = false;
+            }
+
+        if(!StartDragging) 
+        {
+            if(Vector2.Distance(start,(Vector2)Input.mousePosition) < MinDragSize)
+            {
+                Current = Input.mousePosition;
+                return Vector2.zero;
+            }
+
+            StartDragging = true;
+        }
+        Vector2 distance = (Vector2)Input.mousePosition - Current;
+        Current = Input.mousePosition; 
+        //if(distance.x != 0) Debug.Log((distance*ValueMultiplier).x);
+        return distance*ValueMultiplier;
+    }
+
+    public Vector2 UpdateDistanceReverseValue()
+    {
+        Vector2 distance = UpdateDistance();
+        return new Vector2(distance.y, distance.x);
+    }
+}
