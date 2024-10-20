@@ -124,7 +124,7 @@ namespace UCamSystem
         private void UpdateTransform() =>
             transform.SetPositionAndRotation(
                 Vector3.Lerp(transform.position, Ghost.transform.position, moveSpeed * Time.deltaTime),
-                Quaternion.Slerp(transform.rotation, Ghost.transform.rotation, rotateSpeed * Time.deltaTime)
+                Quaternion.Lerp(transform.rotation, Ghost.transform.rotation, rotateSpeed * Time.deltaTime)
             );
 
         public void SetState(UCamStates newState, bool force = false) {
