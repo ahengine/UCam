@@ -1,14 +1,20 @@
 using UnityEngine;
 using UCamSystem.States;
+using UnityEngine.Events;
 
 namespace UCamSystem
 {
     public class UCamPoint : MonoBehaviour
     {
+        private static UCamPoint current;
+
         [SerializeField] private bool onEnable;
         [SerializeField] private UCamStateCard stateCard;
         [SerializeField] private Transform parent;
         [SerializeField] private Transform target;
+
+        [field:SerializeField] public UnityEvent OnSet {private set; get;}
+        [field:SerializeField] public UnityEvent OnLeave {private set; get;}
 
         private UCam owner;
 
@@ -31,11 +37,21 @@ namespace UCamSystem
 
             owner.Ghost.SetPositionRotation(transform);
             owner.Ghost.SetParent(parent ?? transform);
-
+            Events();
             if(!stateCard)
                 return;
 
             owner.SetState(stateCard, true);
+        }
+
+        private void Events()
+        {
+            if(current)
+                current.OnLeave?.Invoke();
+
+            current = this;
+
+            OnSet?.Invoke();
         }
 
 #if UNITY_EDITOR
