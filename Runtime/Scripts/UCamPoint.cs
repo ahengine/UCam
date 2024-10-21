@@ -8,6 +8,9 @@ namespace UCamSystem
     {
         private static UCamPoint current;
 
+        private bool HaveOwner =>
+            owner || SetOwner(UCam.Instance);
+
         [SerializeField] private bool onEnable;
         [SerializeField] private UCamStateCard stateCard;
         [SerializeField] private Transform parent;
@@ -29,7 +32,7 @@ namespace UCamSystem
         [ContextMenu("Set")]
         public void Set() 
         {    
-            if(!owner && !SetOwner(UCam.Instance))
+            if(!HaveOwner)
                 return;
 
             if(target)
@@ -58,7 +61,7 @@ namespace UCamSystem
         [Header("Editor Test"),SerializeField] private KeyCode keyCode;
         private void Update() 
         {
-            if(!owner)
+            if(!HaveOwner)
                 return;
 
             if(Input.GetKeyDown(keyCode))
